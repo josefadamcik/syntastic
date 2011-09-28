@@ -82,10 +82,10 @@ if !executable('jshint')
 endif
 
 function! SyntaxCheckers_javascript_GetLocList()
-    if exists('s:config')
-        let makeprg = 'jshint ' . shellescape(expand("%")) . ' --config ' . s:config
+    if empty(g:syntastic_jshint_conf)
+		let makeprg = 'jshint ' . shellescape(expand("%"))
     else
-        let makeprg = 'jshint ' . shellescape(expand("%"))
+		let makeprg = 'jshint ' . shellescape(expand("%")) . ' --config ' . g:syntastic_jshint_conf
     endif
     let errorformat = '%f: line %l\, col %c\, %m,%-G%.%#'
     return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
